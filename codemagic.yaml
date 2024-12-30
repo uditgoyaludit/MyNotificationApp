@@ -6,7 +6,11 @@ workflows:
         ANDROID_SDK_ROOT: /opt/android-sdk
       node: latest
     scripts:
-      - echo "Starting Android build without gradlew"
-      - gradle assembleRelease
+      - echo "Starting Android build with Gradle"
+      # Ensure that the gradle wrapper (gradlew) exists and is used
+      - if [ ! -f "./gradlew" ]; then echo "Gradle wrapper not found!"; exit 1; fi
+      # Clean and assemble the release APK using gradlew (recommended approach)
+      - ./gradlew clean assembleRelease
     artifacts:
+      # Collect the release APK file(s) generated
       - app/build/outputs/apk/release/*.apk
