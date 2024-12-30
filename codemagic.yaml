@@ -1,0 +1,18 @@
+workflows:
+  android-build:
+    name: Build Android APK
+    max_build_duration: 60
+    environment:
+      vars:
+        ANDROID_SDK_ROOT: /opt/android-sdk
+      node: latest
+    scripts:
+      - echo "Starting Android build"
+      - ./gradlew assembleRelease
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
+    publishing:
+      email:
+        recipients:
+          - your_email@example.com
+          
